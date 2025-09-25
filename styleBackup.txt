@@ -1,0 +1,581 @@
+#design1 .conference-top {
+  width: 100%;
+  margin: 0 auto !important;
+  display: flex;
+  justify-content: center;
+}
+
+#design1 .conference-wrapper {
+  display: inline-block;
+  text-align: center;
+}
+
+#design1 .res-title,
+.subwords div {
+  font-size: clamp(20px, 5vw, 95px);
+}
+
+#design1 .title {
+  letter-spacing: 4px;
+  margin-bottom: 0;
+  line-height: 0.8;
+  padding-bottom: 0;
+}
+
+#design1 .subwords {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-weight: 300 !important;
+}
+
+#design1 .subwords span {
+  font-size: 35%;
+
+  display: block;
+}
+
+/* === GREEN (#BAFF00) === */
+#design1 .txt-g {
+  color: #baff00;
+}
+
+#design1 .bg-g {
+  background-color: #baff00;
+}
+
+#design1 .border-g {
+  border: solid #baff00;
+}
+
+/* === BLUE (#00FFF6) === */
+#design1 .txt-b {
+  color: #00fff6;
+}
+
+#design1 .bg-b {
+  background-color: #00fff6;
+}
+
+#design1 .border-b {
+  border: solid #00fff6;
+}
+
+#design1 .panel-container {
+  display: flex;
+  width: auto;
+  height: 100vh;
+  white-space: nowrap;
+}
+
+#design1 .panel {
+  position: relative;
+  width: auto;
+  min-width: max-content;
+  height: 100vh;
+  overflow: visible;
+  display: flex;
+  color: #333;
+  text-align: left;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------------- */
+
+
+
+
+#design2 html {
+  scroll-behavior: auto !important;
+}
+
+#design2 img {
+  width: 100%;
+}
+
+#design2 .wheel-container {
+  margin: auto;
+  max-width: 1140px;
+}
+#design2 .wheel-container .wheel {
+  width: 100%;
+  position: relative;
+  margin-bottom: 2rem;
+}
+#design2 .wheel-container .wheel .wheel-parts {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+#design2 .wheel-container .wheel .wheel-parts img {
+  opacity: 0;
+  position: absolute;
+  max-width: 74%;
+  top: 60.25%;
+  bottom: auto;
+  left: 13%;
+  right: auto;
+  z-index: 1;
+}
+#design2 .wheel-container .wheel .wheel-parts .wheel-in-home {
+  top: 35.5%;
+  left: -21.5%;
+  rotate: 72deg;
+}
+#design2 .wheel-container .wheel .wheel-parts .wheel-property {
+  top: 35.5%;
+  left: 47.5%;
+  rotate: 288deg;
+}
+#design2 .wheel-container .wheel .wheel-parts .wheel-service {
+  top: -4.75%;
+  left: -8.25%;
+  rotate: 144deg;
+}
+#design2 .wheel-container .wheel .wheel-parts .wheel-staffing {
+  top: -4.75%;
+  left: 34.25%;
+  rotate: 216deg;
+}
+#design2 .wheel-container .wheel .wheel-parts .active {
+  opacity: 1;
+  transform: scale(1.2);
+}
+#design2 .wheel-container .wheel-content .text-block {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
+
+#design2 h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: sans-serif;
+}
+
+#design2 .d-none {
+  display: none;
+}
+
+#design2 .header,
+.footer {
+  background: #eee;
+  text-align: center;
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+=========================================================================================================================================================
+.conference-top {
+  width: 100%;
+  margin: 0 auto !important;
+  display: flex;
+  justify-content: center;
+}
+
+.conference-wrapper {
+  display: inline-block;
+  text-align: center;
+}
+
+.res-title,
+.subwords div {
+  font-size: clamp(20px, 5vw, 95px);
+}
+
+.title {
+  letter-spacing: 4px;
+  margin-bottom: 0;
+  line-height: 0.8;
+  padding-bottom: 0;
+}
+
+.subwords {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-weight: 300 !important;
+}
+
+.subwords span {
+  font-size: 35%;
+
+  display: block;
+}
+
+/* === GREEN (#BAFF00) === */
+.txt-g {
+  color: #baff00;
+}
+
+.bg-g {
+  background-color: #baff00;
+}
+
+.border-g {
+  border: solid #baff00;
+}
+
+/* === BLUE (#00FFF6) === */
+.txt-b {
+  color: #00fff6;
+}
+
+.bg-b {
+  background-color: #00fff6;
+}
+
+.border-b {
+  border: solid #00fff6;
+}
+
+.panel-container {
+  display: flex;
+  width: auto;
+  height: 100vh;
+  white-space: nowrap;
+}
+
+.panel {
+  position: relative;
+  width: auto;
+  min-width: max-content;
+  height: 100vh;
+  overflow: visible;
+  display: flex;
+  color: #ffffff;
+  text-align: left;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+
+
+
+
+
+
+
+
+/* wheel ---------------------- */
+
+
+
+
+html {
+  scroll-behavior: auto !important;
+}
+
+/* img {
+  width: 100% !important;
+} */
+
+.wheel-container {
+  /* margin: auto; */
+  max-width: 100%;
+  margin-left: 50px;
+   /* border: rgb(100, 161, 19) 2px solid; */
+  
+}
+.wheel-container .wheel {
+  width: 500px;
+  position: relative;
+  margin-bottom: 2rem;
+     /* border: red 2px solid; */
+}
+.wheel-container .wheel .wheel-parts {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+ 
+}
+.wheel-container .wheel .wheel-parts img {
+  opacity: 0;
+  position: absolute;
+ 
+  max-width: 120%;
+  top: 70.25%;
+  bottom: auto;
+  left: 13%;
+  right: auto;
+  z-index: 1;
+  /* border: red 10px solid; */
+}
+.wheel-container .wheel .wheel-parts .wheel-in-home {
+  top: 35.5%;
+  /* left: -21.5%; */
+
+
+}
+.wheel-container .wheel .wheel-parts .wheel-property {
+   top: 35.5%;
+  /* left: -21.5%; */
+    
+  /* rotate: 288deg; */
+}
+.wheel-container .wheel .wheel-parts .wheel-service {
+   top: 35.5%;
+  /* left: -21.5%; */
+  /* rotate: 144deg; */
+}
+.wheel-container .wheel .wheel-parts .wheel-staffing {
+ top: 35.5%;
+  /* left: -21.5%; */
+  /* rotate: 0deg; */
+  /* rotate: 216deg; */
+}
+/* .wheel-container .wheel .wheel-parts .active {
+  opacity: 1;
+  transform: scale(1.2);
+} */
+.wheel-container .wheel-content .text-block {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: sans-serif;
+  
+}
+
+.d-none {
+  display: none;
+}
+   
+@media  (min-width: 1905px) {
+
+
+
+.wheel-container .wheel .wheel-parts img {
+  opacity: 0;
+  position: absolute;
+  max-width: 150%;
+  top: 80%;
+  /* bottom: auto; */
+  left: 5%;
+  right: auto;
+  z-index: 1;
+
+}
+  
+
+.wheel-container {
+  /* margin: auto; */
+  max-width: 80%;
+  margin-left: 50px;
+  font-size: large;
+   /* border: rgb(100, 161, 19) 2px solid; */
+   margin-top: 120px;
+}
+/* .content-text{
+  margin-top: 200px;
+
+  
+} */
+
+
+}
+
+
+/* ---------------------FAQ ---------------------- */
+   
+        .faq-section {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .faq-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            min-height: 600px;
+        }
+
+        .faq-sidebar {
+            width: 300px;
+            background: #2d3748;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .faq-nav-item {
+            display: block;
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: transparent;
+            color: white;
+            border: none;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .faq-nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            padding-left: 2rem;
+        }
+
+        .faq-nav-item.active {
+            background: #4a5568;
+            border-left: 4px solid #0611ac;
+            padding-left: 1.75rem;
+        }
+
+        .faq-content {
+            flex: 1;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+
+        .faq-content-item {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.4s ease;
+        }
+
+        .faq-content-item.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .faq-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+            border-bottom: 2px solid #2623e4;
+            padding-bottom: 0.5rem;
+        }
+
+        .faq-question {
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .faq-question-header {
+            padding: 1rem 1.5rem;
+            background: #e2e8f0;
+            font-weight: 600;
+            color: #2d3748;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question-header:hover {
+            background: #cbd5e0;
+        }
+
+        .faq-question-header.active {
+            background: #4a59de;
+            color: white;
+        }
+
+        .faq-answer {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            margin: 0 0 1rem 0;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .faq-answer ul {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            color: #4a5568;
+        }
+
+        .faq-answer li {
+            margin-bottom: 0.5rem;
+        }
+
+        .expand-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .faq-container {
+                flex-direction: column;
+                margin: 1rem;
+            }
+            
+            .faq-sidebar {
+                width: 100%;
+                display: flex;
+                overflow-x: auto;
+                padding: 0;
+            }
+            
+            .faq-nav-item {
+                min-width: 150px;
+                text-align: center;
+                border-bottom: none;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .faq-content {
+                padding: 1.5rem;
+            }
+            
+            .faq-title {
+                font-size: 1.5rem;
+            }
+        }
+
+
