@@ -285,6 +285,13 @@ h6 {
     font-size: 1.05vw;
     line-height: 1.8;
 }
+img.wheel-item {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+}
 
 .d-none {
   display: none;
@@ -642,19 +649,19 @@ model-viewer {
 /* page no */
 
 #pageIndicator {
-  position: fixed;
-  bottom: 15px;
-  left: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background: rgba(0,0,0,0.6);
-  padding: 6px 10px;
-  border-radius: 8px;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+    position: fixed;
+    bottom: 15px;
+    left: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: rgb(27 120 204);
+    padding: 6px 10px;
+    border-radius: 8px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 #pageIndicator input {
