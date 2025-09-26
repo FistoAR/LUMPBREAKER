@@ -1,5 +1,31 @@
 // console.clear();
 
+// model viewer - normal and function view code
+const mP = {model: r_("modelViewer"), normal: r_("normalButton"), function: r_("functionButton")};
+
+function r_(text) {
+  return document.getElementById(text);
+}
+
+mP.function.addEventListener("click", ()=> {
+  setAnimationPlayState(true);
+});
+
+mP.normal.addEventListener("click", ()=>{
+  setAnimationPlayState(false);
+});
+
+function setAnimationPlayState(shouldPlay) {
+  if (!mP.model) return;
+
+  mP.model.currentTime = 0; // start from beginning
+  if (shouldPlay) {
+    mP.model.play();
+  } else {
+    mP.model.pause();
+  }
+}
+
 gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother, ScrollToPlugin);
 ScrollSmoother.create({
   effects: true,
@@ -135,77 +161,35 @@ ScrollTrigger.create({
 });
 
 
-
 ScrollTrigger.create({
   trigger: "#model-section2",
-  id: "modelviewTrigger", // 👈 added
+  id: "modelviewTrigger",
   start: "top top",
-  end: "bottom top",
+  end: "+=" + window.innerHeight,  // pin for one full viewport
   pin: true,
   pinSpacing: true,
 });
 
+// Pin video section
 ScrollTrigger.create({
   trigger: "#videoSection",
   id: "videoSectionTrigger",
   start: "top top",
-  end: "bottom top",
+  end: "+=" + window.innerHeight,
   pin: true,
   pinSpacing: true,
 });
 
+// Pin FAQ section
 ScrollTrigger.create({
   trigger: "#FAQ_section",
   id: "faqTrigger",
   start: "top top",
-  end: "bottom top",
+  end: "+=" + window.innerHeight,
   pin: true,
-  pinSpacing: false,
+  pinSpacing: true,
 });
 
-
-//  gsap.registerPlugin(ScrollTrigger);
-
-//   let panells = gsap.utils.toArray("section");
-
-//   panells.forEach((panell, i) => {
-//     gsap.fromTo(panell,
-//       { autoAlpha: 0 },
-//       {
-//         autoAlpha: 1,
-//         duration: 0.5,
-//         ease: "none",
-//         scrollTrigger: {
-//           trigger: panell,
-//           start: "top center",   // when section reaches middle
-//           end: "bottom center",  // fade out as you scroll past
-//           toggleActions: "play reverse play reverse", // fade in/out
-//         }
-//       }
-//     );
-//   });
-
-//  gsap.registerPlugin(ScrollTrigger);
-
-//   let panells = gsap.utils.toArray(".panell");
-
-//   // hide all except first
-//   gsap.set(panells.slice(1), { display: "none" });
-
-//   panells.forEach((panell, i) => {
-//     ScrollTrigger.create({
-//       trigger: panell,
-//       start: "top center",
-//       onEnter: () => {
-//         gsap.set(panells, { display: "none" });
-//         gsap.set(panell, { display: "block" });
-//       },
-//       onEnterBack: () => {
-//         gsap.set(panells, { display: "none" });
-//         gsap.set(panell, { display: "block" });
-//       }
-//     });
-//   });
 
 // --- Put this after `tl` is created (so tl.scrollTrigger exists) ---
 const wheelST = tl && tl.scrollTrigger ? tl.scrollTrigger : null;
@@ -214,8 +198,17 @@ const wheelValues = ["features", "optionalfeatures", "applications"];
 
 // Replace/insert the whole DOMContentLoaded block with this:
 document.addEventListener("DOMContentLoaded", () => {
+    const pageInput = document.getElementById("pageInput");
+  const pageTotal = document.getElementById("pageTotal");
   const dropdown = document.getElementById("dropdown");
   if (!dropdown) return;
+
+    const options = Array.from(dropdown.options);
+  pageTotal.textContent = `/ ${options.length}`;
+
+  function syncPageIndicator() {
+    pageInput.value = dropdown.selectedIndex + 1;
+  }
 
   dropdown.addEventListener("change", (e) => {
     const value = e.target.value;
@@ -299,87 +292,80 @@ document.addEventListener("DOMContentLoaded", () => {
         endProgrammatic();
         break;
     }
+    syncPageIndicator();
+
   });
 
-  // ------------ improved, robust goToWheel ------------
-  function goToWheel(index) {
-    // safety
-    if (!tl || !wheelST || !images || !paneTexts || images.length === 0) {
-      // fallback: simple scroll
-      gsap.to(window, {
-        scrollTo: "#wheelSection",
-        duration: 1,
-        onComplete: () => endProgrammatic(),
-      });
-      return;
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") {
+      if (dropdown.selectedIndex < options.length - 1) {
+        dropdown.selectedIndex++;
+        dropdown.dispatchEvent(new Event("change"));
+      }
     }
+    if (e.key === "ArrowUp") {
+      if (dropdown.selectedIndex > 0) {
+        dropdown.selectedIndex--;
+        dropdown.dispatchEvent(new Event("change"));
+      }
+    }
+  });
 
-    // Choose a progress that lands *in the middle* of the slice (avoid edges)
-    const step = 1 / images.length;
-    const targetProgress = (index + 0.5) * step;
+    pageInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const num = parseInt(pageInput.value, 10);
+      if (num >= 1 && num <= options.length) {
+        dropdown.selectedIndex = num - 1;
+        dropdown.dispatchEvent(new Event("change"));
+      } else {
+        pageInput.value = dropdown.selectedIndex + 1; // reset if invalid
+      }
+    }
+  });
 
-    // 1) prevent ScrollTrigger from updating timeline while we set state
-    wheelST.disable();
-    tl.pause();
+  syncPageIndicator();
 
-    // 2) Immediately set DOM to exactly the desired state (hide everything except target)
-    images.forEach((img, i) => {
-      gsap.set(img, {
-        display: i === index ? "block" : "none",
-        opacity: i === index ? 1 : 0,
-        visibility: i === index ? "visible" : "hidden",
-      });
-    });
-    paneTexts.forEach((txt, i) => {
-      gsap.set(txt, {
-        display: i === index ? "block" : "none",
-        opacity: i === index ? 1 : 0,
-        visibility: i === index ? "visible" : "hidden",
-      });
-    });
 
-    // 3) Put the timeline internal progress where we want it (render immediately)
-    tl.progress(targetProgress, true);
-
-    // 4) Ensure ScrollTrigger has fresh start/end values so we can compute the exact scroll pos
-    ScrollTrigger.refresh();
-
-    // compute the corresponding scroll position for that progress (safe numeric values now)
-    const startPx = wheelST.start || 0;
-    const endPx = wheelST.end || startPx;
-    const scrollPos = startPx + targetProgress * (endPx - startPx);
-
-    // 5) Smooth scroll to the correct spot that corresponds with the chosen progress
+  function goToWheel(index) {
+  if (!tl || !wheelST || !images.length) {
     gsap.to(window, {
-      scrollTo: scrollPos,
+      scrollTo: "#wheelSection",
       duration: 1,
-      onComplete: () => {
-        // refresh smoother/triggers so pinned calculations are accurate
-        try {
-          const ss = ScrollSmoother.get && ScrollSmoother.get();
-          if (ss && typeof ss.refresh === "function") ss.refresh();
-        } catch (err) {
-          // ignore if no refresher
-        }
-        ScrollTrigger.refresh();
-
-        // small delay to give the engine a frame to settle, then re-enable wheel trigger
-        setTimeout(() => {
-          // re-enable the wheel ScrollTrigger — because we've positioned the scroll exactly
-          // to match tl.progress(), enabling will not flip the visuals.
-          wheelST.enable();
-
-          // keep timeline paused right after enabling to avoid it animating immediately.
-          tl.pause();
-
-          // small extra delay then allow scroll triggers to update dropdown again
-          setTimeout(() => {
-            isProgrammaticScroll = false;
-          }, 60);
-        }, 30);
-      },
+      onComplete: () => endProgrammatic(),
     });
+    return;
   }
+
+  // one "step" of the wheel timeline
+  const step = 1 / images.length;
+  // land in the *middle* of the slice
+  const targetProgress = (index + 0.5) * step;
+
+  // compute the scroll position that corresponds to that progress
+  const startPx = wheelST.start || 0;
+  const endPx = wheelST.end || startPx;
+  const scrollPos = startPx + targetProgress * (endPx - startPx);
+
+  // scroll window to the exact scroll position
+  gsap.to(window, {
+    scrollTo: scrollPos,
+    duration: 1,
+    onComplete: () => {
+      // set timeline progress — GSAP will handle visibility
+      tl.progress(targetProgress).pause();
+
+      // refresh smoother/triggers
+      try {
+        const ss = ScrollSmoother.get && ScrollSmoother.get();
+        if (ss) ss.refresh();
+      } catch {}
+      ScrollTrigger.refresh();
+
+      endProgrammatic();
+    },
+  });
+}
+
 
   // helper to end a generic programmatic scroll
   function endProgrammatic() {
@@ -438,109 +424,101 @@ function playAudioFor(value) {
       start: "top center",
       end: "bottom center",
       onEnter: () => {
-        if (!isProgrammaticScroll) dropdown.value = s.id;
+        if (!isProgrammaticScroll){
+            dropdown.value = s.id;
+            syncPageIndicator();       // ✅ update page number
+            playAudioFor(s.id);  
+          }
       },
       onEnterBack: () => {
-        if (!isProgrammaticScroll) dropdown.value = s.id;
+        if (!isProgrammaticScroll){
+           dropdown.value = s.id;
+           syncPageIndicator();       // ✅ update page number
+           playAudioFor(s.id);  
+          }
       },
     });
   });
 
   // wheel-specific mapping (images -> dropdown values)
-  images.forEach((img, i) => {
-    ScrollTrigger.create({
-      trigger: img,
-      start: "top center",
-      end: "bottom center",
-      onEnter: () => {
-        if (!isProgrammaticScroll)
-          dropdown.value = wheelValues[i] || "features";
-      },
-      onEnterBack: () => {
-        if (!isProgrammaticScroll)
-          dropdown.value = wheelValues[i] || "features";
-      },
-    });
-  });
+  // images.forEach((img, i) => {
+  //   ScrollTrigger.create({
+  //     trigger: img,
+  //     start: "top center",
+  //     end: "bottom center",
+  //     onEnter: () => {
+  //       if (!isProgrammaticScroll){
 
-  // If the wheel section itself is scrolled into view (but not a specific image),
-  // ensure the dropdown shows 'features' as a safe default when not handled by image triggers.
-  if (document.querySelector("#wheelSection")) {
-    ScrollTrigger.create({
-      trigger: "#wheelSection",
-      start: "top center",
-      end: "bottom center",
-      onEnter: () => {
-        if (!isProgrammaticScroll) dropdown.value = "features";
-      },
-      onEnterBack: () => {
-        if (!isProgrammaticScroll) dropdown.value = "features";
-      },
-    });
-  }
+  //         // dropdown.value = wheelValues[i] || "features";
+  //          const id = wheelValues[i] || "features";
+  //           dropdown.value = id;
+  //           syncPageIndicator();       // ✅ update page number
+  //           playAudioFor(id);     
+  //       }
+  //     },
+  //     onEnterBack: () => {
+  //       if (!isProgrammaticScroll) {
+  //         // dropdown.value = wheelValues[i] || "features";
+  //           const id = wheelValues[i] || "features";
+  //           dropdown.value = id;
+  //           syncPageIndicator();       // ✅ update page number
+  //           playAudioFor(id);      
+
+  //       }
+  //     },
+  //   });
+  // });
+
+  // // If the wheel section itself is scrolled into view (but not a specific image),
+  // // ensure the dropdown shows 'features' as a safe default when not handled by image triggers.
+  // if (document.querySelector("#wheelSection")) {
+  //   ScrollTrigger.create({
+  //     trigger: "#wheelSection",
+  //     start: "top center",
+  //     end: "bottom center",
+  //     onEnter: () => {
+  //       if (!isProgrammaticScroll) dropdown.value = "features";
+  //     },
+  //     onEnterBack: () => {
+  //       if (!isProgrammaticScroll) dropdown.value = "features";
+  //     },
+  //   });
+  // }
+  // ----------------------------------------------
+// Wheel: single progress-based updater (reliable)
+// ----------------------------------------------
+let lastWheelIndex = -1;
+
+// Only create the tracker if the wheel section and timeline exist
+if (document.querySelector("#wheelSection") && typeof tl !== "undefined" && images.length) {
+  ScrollTrigger.create({
+    trigger: "#wheelSection",
+    // match the wheel timeline's scroll range (same as tl.scrollTrigger)
+    start: "top top",
+    end: "+=200%", // same end as tl's ScrollTrigger
+    onUpdate: function(self) {
+      // if programmatic navigation is in progress, ignore updates
+      if (isProgrammaticScroll) return;
+
+      // use the wheel timeline progress (0..1) — more accurate than many per-element triggers
+      const p = tl.progress();
+
+      // map progress -> index (clamp to [0, images.length-1])
+      let idx = Math.floor(p * images.length);
+      if (idx < 0) idx = 0;
+      if (idx > images.length - 1) idx = images.length - 1;
+
+      // only update when index actually changes (prevents repeated audio triggers)
+      if (idx === lastWheelIndex) return;
+      lastWheelIndex = idx;
+
+      const id = wheelValues[idx] || "features";
+      dropdown.value = id;
+      syncPageIndicator();
+      playAudioFor(id);
+    },
+  });
+}
+
 });
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const dropdown = document.getElementById("dropdown");
-
-//   dropdown.addEventListener("change", (e) => {
-//     const value = e.target.value;
-//     console.log("Log value: ", value);
-
-//     switch (value) {
-//       case "home":
-//         gsap.to(window, { scrollTo: 0, duration: 1 });
-//         break;
-//       case "about":
-//         gsap.to(window, { scrollTo: "#model-section", duration: 1 });
-//         break;
-//       case "features":
-//         goToWheel(0);
-//         break;
-//       case "optionalfeatures":
-//         goToWheel(1);
-//         break;
-//       case "applications":
-//         goToWheel(2);
-//         break;
-//       case "modelview":
-//         gsap.to(window, {
-//           scrollTo: ScrollTrigger.getById("modelviewTrigger").start, // 👈 precise pin start
-//           duration: 1,
-//           onComplete: () => ScrollSmoother.get().refresh(),
-//         });
-//         break;
-
-//       case "animation":
-//         gsap.to(window, { scrollTo: "#videoSection", duration: 1 });
-//         break;
-//       case "faq":
-//         gsap.to(window, { scrollTo: "#FAQ_section", duration: 1 });
-//         break;
-//     }
-//   });
-
-//   function goToWheel(index) {
-//   gsap.to(window, {
-//     scrollTo: "#wheelSection",
-//     duration: 1,
-//     onComplete: () => {
-//       if (typeof tl !== "undefined") {
-//         // Pause timeline so scroll doesn't override immediately
-//         tl.pause();
-
-//         // Hide all first
-//         images.forEach((img, i) => {
-//           gsap.set(img, { display: "none", opacity: 0, visibility: "hidden" });
-//           gsap.set(paneTexts[i], { display: "none", opacity: 0, visibility: "hidden" });
-//         });
-
-//         // Show only the selected
-//         gsap.set(images[index], { display: "block", opacity: 1, visibility: "visible" });
-//         gsap.set(paneTexts[index], { display: "block", opacity: 1, visibility: "visible" });
-//       }
-//     }
-//   });
-// }
-
-// });

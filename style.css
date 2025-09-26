@@ -282,7 +282,7 @@ h6 {
 }
 
 .wheel-list-container li {
-    font-size: 1.15vw;
+    font-size: 1.05vw;
     line-height: 1.8;
 }
 
@@ -312,6 +312,9 @@ h6 {
 
 .pin-section-content-area {
 
+}
+.content-text div {
+  background: #00000047;
 }
 
 @media (min-width: 1905px) {
@@ -376,6 +379,18 @@ model-viewer {
   transform: translateX(-50%);
 }
 
+.model-section .bottom-model-buttons-container button {
+  background: transparent;
+  color: white;
+}
+
+.model-section .bottom-model-buttons-container button:hover {
+  background: white;
+  color: black;
+}
+
+
+
 
 /* video section */
 
@@ -395,12 +410,12 @@ model-viewer {
 }
 
 .animation_video {
-  height: auto;
-  width: 65%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    height: 70vh;
+    width: auto;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* ---------------------FAQ ---------------------- */
@@ -618,8 +633,41 @@ model-viewer {
 .qr-container {
     position: absolute;
     bottom: 10%;
-    right: 0%;
+    right: -5%;
     z-index: 99;
     height: 33%;
     width: 12%;
+}
+
+/* page no */
+
+#pageIndicator {
+  position: fixed;
+  bottom: 15px;
+  left: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0,0,0,0.6);
+  padding: 6px 10px;
+  border-radius: 8px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#pageIndicator input {
+  width: 40px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  text-align: right;
+  font-size: 16px;
+  outline: none;
+}
+
+#pageIndicator span {
+  color: #bbb;
+  font-size: 14px;
 }
