@@ -661,20 +661,39 @@ model-viewer {
     z-index: 1000;
     display: flex;
     align-items: center;
-    gap: 6px;
 }
 
+
+
 #pageIndicator input {
-  width: 40px;
-  background: transparent;
+  width: 50px;
+  flex: 1;
+  background: white;
   border: none;
-  color: #fff;
-  text-align: right;
+  color: #000000;
+  text-align: center;
   font-size: 16px;
   outline: none;
+  border-radius: 8px;
+  padding: 5px;
 }
 
 #pageIndicator span {
-  color: #bbb;
-  font-size: 14px;
+  width: 50px;
+  color: #ffffff;
+  font-size: 18px;
+  flex: 1;
+  text-align: center;
+}
+
+/* For Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }

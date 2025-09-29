@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css'>
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/daisyui@5'>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=2">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5/dist/full.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -442,7 +442,7 @@
                   <div class="text-block wheel-property-content text-white  " id="property Optional-Features"
                     role="tabpanel" aria-labelledby="property-tab" tabindex="0">
                     <div
-                      class="text-white text-lg  list-decimal filter backdrop-blur content-text mx-auto  mr-[20%] ml-[-20%] flex mt-[32.5%]">
+                      class="text-white text-lg  list-decimal filter backdrop-blur content-text ml-[30%] flex mt-[32.5%]">
                       <h1
                         class="text-[#3899A8] font-bold wheel-heading-text align-start justify-content-start mb-[10px]">
                         OPTIONAL
@@ -709,7 +709,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
-  <script src="./script.js"></script>
+  <script src="./script.js?v=2"></script>
 
   <script>
     //   gsap.registerPlugin(ScrollTrigger);
@@ -736,21 +736,21 @@
   <!-- ✅ Smooth Scroll + Toggle -->
   <script>
     // Toggle mobile menu
-    const menuBtn = document.getElementById("menuBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
-    menuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
+    // const menuBtn = document.getElementById("menuBtn");
+    // const mobileMenu = document.getElementById("mobileMenu");
+    // menuBtn.addEventListener("click", () => {
+    //   mobileMenu.classList.toggle("hidden");
+    // });
 
-    // Smooth scroll for links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener("click", function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute("href"))
-          .scrollIntoView({ behavior: "smooth" });
-        mobileMenu.classList.add("hidden"); // auto-close menu
-      });
-    });
+    // // Smooth scroll for links
+    // document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    //   anchor.addEventListener("click", function (e) {
+    //     e.preventDefault();
+    //     document.querySelector(this.getAttribute("href"))
+    //       .scrollIntoView({ behavior: "smooth" });
+    //     mobileMenu.classList.add("hidden"); // auto-close menu
+    //   });
+    // });
 
 
   </script>
@@ -818,10 +818,10 @@
     });
   </script>
   <script>
-    window.addEventListener("load", function () {
-      const preloader = document.getElementById("preloader");
-      preloader.style.display = "none"; // hides preloader
-    });
+    // window.addEventListener("load", function () {
+    //   const preloader = document.getElementById("preloader");
+    //   preloader.style.display = "none"; // hides preloader
+    // });
   </script>
 
   <script>

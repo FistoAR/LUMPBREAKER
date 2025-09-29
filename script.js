@@ -114,28 +114,49 @@ gsap.registerPlugin(ScrollTrigger);
 
 const images = gsap.utils.toArray("img.wheel-item");
 const paneTexts = gsap.utils.toArray(".wheel-content .text-block");
-
 const tl = gsap.timeline({
   scrollTrigger: {
     trigger: "#wheelSection",
     start: "top top",
     end: "+=200%",
     pin: true,
-    scrub: true,
-    snap: {
-      snapTo: 1 / images.length, // snap to each image step
-      duration: 0.3,
-      delay: 0,
-      ease: "power1.inOut",
-    },
+    scrub: 1,
+    // snap: {
+    //   snapTo: 1 / images.length,
+    //   duration: 0.3,
+    //   delay: 0,
+    //   ease: "power1.inOut",
+    // },
     markers: false,
-  },
-  onComplete: () => {
-    // ✅ when 2nd animation finishes, trigger 3rd
-    document.getElementById("third-animation").style.display = "block";
-    // startThirdAnimation();
-  },
+  }
 });
+
+ScrollTrigger.create({
+  trigger: "#wheelSection",
+  start: "top top",
+  end: "+=200%",
+  scrub: true,
+  onRelease: (self) => {
+    if (isProgrammaticScroll) return;
+
+    const step = 1 / images.length;
+    const progress = tl.progress();
+    const closestIndex = Math.round(progress / step);
+
+    const targetProgress = (closestIndex + 0.5) * step;
+    const startPx = tl.scrollTrigger.start || 0;
+    const endPx = tl.scrollTrigger.end || startPx;
+    const scrollPos = startPx + targetProgress * (endPx - startPx);
+
+    gsap.to(window, {
+      scrollTo: scrollPos,
+      duration: 0.6,
+      ease: "power2.out"
+    });
+  }
+});
+
+let wheelST = tl.scrollTrigger;
 
 images.forEach((img, i) => {
   const text = paneTexts[i];
@@ -192,7 +213,7 @@ ScrollTrigger.create({
 
 
 // --- Put this after `tl` is created (so tl.scrollTrigger exists) ---
-const wheelST = tl && tl.scrollTrigger ? tl.scrollTrigger : null;
+// const wheelST = tl && tl.scrollTrigger ? tl.scrollTrigger : null;
 let isProgrammaticScroll = false;
 const wheelValues = ["features", "optionalfeatures", "applications"];
 
@@ -325,46 +346,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   syncPageIndicator();
 
+function goToWheel(index) {
+  if (!tl || !wheelST || !images.length) return;
 
-  function goToWheel(index) {
-  if (!tl || !wheelST || !images.length) {
-    gsap.to(window, {
-      scrollTo: "#wheelSection",
-      duration: 1,
-      onComplete: () => endProgrammatic(),
-    });
-    return;
-  }
-
-  // one "step" of the wheel timeline
   const step = 1 / images.length;
-  // land in the *middle* of the slice
   const targetProgress = (index + 0.5) * step;
-
-  // compute the scroll position that corresponds to that progress
   const startPx = wheelST.start || 0;
   const endPx = wheelST.end || startPx;
   const scrollPos = startPx + targetProgress * (endPx - startPx);
 
-  // scroll window to the exact scroll position
+  // 🔹 Temporarily remove snap
+  const originalSnap = wheelST.vars.snap;
+  wheelST.vars.snap = false;
+
   gsap.to(window, {
     scrollTo: scrollPos,
     duration: 1,
     onComplete: () => {
-      // set timeline progress — GSAP will handle visibility
+      // lock at the target frame
       tl.progress(targetProgress).pause();
 
-      // refresh smoother/triggers
-      try {
-        const ss = ScrollSmoother.get && ScrollSmoother.get();
-        if (ss) ss.refresh();
-      } catch {}
-      ScrollTrigger.refresh();
+      // 🔹 Restore snapping after a short delay
+      setTimeout(() => {
+        wheelST.vars.snap = originalSnap;
+      }, 300);
 
       endProgrammatic();
-    },
+    }
   });
 }
+
+
+
 
 
   // helper to end a generic programmatic scroll
@@ -391,9 +404,12 @@ const audioMap = {
 };
 
 let currentAudio = null;
+let audioValue = null;
 
 function playAudioFor(value) {
   // Stop currently playing audio
+  if (audioValue == value) return;
+
   if (currentAudio) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
@@ -402,6 +418,7 @@ function playAudioFor(value) {
   const audio = audioMap[value];
   if (audio) {
     currentAudio = audio;
+    audioValue = value;
     audio.play().catch((err) => {
       console.warn("Audio play blocked by browser:", err);
     });
