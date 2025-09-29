@@ -380,14 +380,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // map for main sections
 
 const audioMap = {
-  home: new Audio("/audios/home.mp3"),
-  about: new Audio("/audios/about.mp3"),
-  features: new Audio("/audios/features.mp3"),
-  optionalfeatures: new Audio("/audios/optional_features.mp3"),
-  applications: new Audio("/audios/applications.mp3"),
-  modelview: new Audio("/audios/modelview.mp3"),
-  animation: new Audio("/audios/animation.mp3"),
-  faq: new Audio("/audios/faq.mp3"),
+  home: new Audio("./audios/home.mp3"),
+  about: new Audio("./audios/about.mp3"),
+  features: new Audio("./audios/features.mp3"),
+  optionalfeatures: new Audio("./audios/optional_features.mp3"),
+  applications: new Audio("./audios/applications.mp3"),
+  modelview: new Audio("./audios/modelview.mp3"),
+  animation: new Audio("./audios/animation.mp3"),
+  faq: new Audio("./audios/faq.mp3"),
 };
 
 let currentAudio = null;
