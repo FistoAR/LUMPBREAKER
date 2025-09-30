@@ -26,6 +26,11 @@ function setAnimationPlayState(shouldPlay) {
   }
 }
 
+mP.model.addEventListener("load", ()=>{
+  const spinner = document.querySelector('.cv-spinner');
+  spinner.classList.add('hide');
+});
+
 gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother, ScrollToPlugin);
 ScrollSmoother.create({
   effects: true,

@@ -389,6 +389,7 @@ model-viewer {
   bottom: 12%;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 99;
 }
 
 .model-section .bottom-model-buttons-container button {
@@ -717,4 +718,36 @@ input[type=number] {
   font-size: 14px;
   font-weight: bold;
   z-index: 1000;
+}
+
+
+.cv-spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  transition: all .3s ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 99;
+  transform: translate(-50%, -50%);
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px #ddd solid;
+  border-top: 4px #2e93e6 solid;
+  border-radius: 50%;
+  animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+
+.cv-spinner.hide {
+  opacity: 0;
+  pointer-events: none;
 }

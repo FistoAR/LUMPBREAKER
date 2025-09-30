@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css'>
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/daisyui@5'>
-  <link rel="stylesheet" href="./style.css?v=3">
+  <link rel="stylesheet" href="./style.css?v=4">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5/dist/full.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -439,8 +439,8 @@
                     </div>
                   </div>
 
-                  <div class="text-block wheel-property-content text-white  option-features" id="property Optional-Features"
-                    role="tabpanel" aria-labelledby="property-tab" tabindex="0">
+                  <div class="text-block wheel-property-content text-white  option-features"
+                    id="property Optional-Features" role="tabpanel" aria-labelledby="property-tab" tabindex="0">
                     <div
                       class="text-white text-lg  list-decimal filter backdrop-blur content-text ml-[-5%] flex mt-[32.5%]">
                       <h1
@@ -515,7 +515,11 @@
 
             <model-viewer src="./images/model_images/Lump Breaker.glb" camera-controls tone-mapping="neutral"
               poster="poster.webp" shadow-intensity="1" min-camera-orbit="auto auto 2.475m" min-field-of-view="22.98deg"
-              class="w-[100%] h-[100%] " id="modelViewer">
+              class="w-[100%] h-[100%] " id="modelViewer" disable-tap disable-pan>
+            </model-viewer>
+            <div class="cv-spinner" id="loadingSpinner">
+              <span class="spinner"></span>
+            </div>
           </div>
           <div class="w-[30%]  flex row justify-between bottom-model-buttons-container">
             <button class="btn w-[40%] p-[1%] text-white border rounded-lg border-white hover:text-black hover:bg-white"
@@ -666,8 +670,8 @@
   </div>
 
   <p id="note">
-  Use the ↑ Up and ↓ Down arrow keys to scroll through the content.
-</p>
+    Use the ↑ Up and ↓ Down arrow keys to scroll through the content.
+  </p>
 
 
   <div id="pageIndicator">
@@ -714,7 +718,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 
-  <script src="./script.js?v=3"></script>
+  <script src="./script.js?v=4"></script>
 
   <script>
     //   gsap.registerPlugin(ScrollTrigger);
